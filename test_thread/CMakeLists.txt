@@ -1,0 +1,15 @@
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -pipe -fPIC -g")
+
+add_executable(test_thread test_thread.cpp)
+add_executable(test_condition_variable test_condition_variable.cpp)
+add_executable(test_call_once test_call_once.cpp)
+add_executable(test_async test_async.cpp)
+add_executable(test_future test_future.cpp)
+add_executable(test_shared_mutex test_shared_mutex.cpp)
+
+target_link_libraries(test_thread -lpthread)
+target_link_libraries(test_condition_variable -lpthread)
+target_link_libraries(test_call_once -lpthread)
+target_link_libraries(test_async -lpthread)
+target_link_libraries(test_future -lpthread)
+target_link_libraries(test_shared_mutex -lpthread)

@@ -10,7 +10,7 @@
 
 #define TIMESTART(tag) auto tag##_start = std::chrono::steady_clock::now(), tag##_end = tag##_start;
 #define TIMEEND(tag) tag##_end = std::chrono::steady_clock::now();
-#define DURATION_S(tag) std::cout << #tag << " cost: " << std::chrono::duration_cast<std::chrono::seconds>(tag##_end - tag##_start).count(); 
+#define DURATION_S(tag) std::cout << #tag << " cost: " << std::chrono::duration_cast<std::chrono::seconds>(tag##_end - tag##_start).count() << std::endl; 
 
 void test_system_clock() {
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
@@ -43,10 +43,24 @@ void test_clock_macro() {
     DURATION_S(test)
 }
 
+void test_time_point() {
+    // time_since_epoch 返回当前时间到时钟起始点的一个时间差
+    auto system_clock_point = std::chrono::system_clock::now();
+    std::cout << "system clock: " << std::chrono::duration_cast<std::chrono::seconds>(
+            system_clock_point.time_since_epoch()).count() << std::endl;
+    auto steady_clock_point = std::chrono::steady_clock::now();
+    std::cout << "steady clock: " << std::chrono::duration_cast<std::chrono::seconds>(
+            steady_clock_point.time_since_epoch()).count() << std::endl;
+    auto high_resolution_clock_point = std::chrono::high_resolution_clock::now();
+    std::cout << "high resolution clock: " << std::chrono::duration_cast<std::chrono::seconds>(
+            high_resolution_clock_point.time_since_epoch()).count() << std::endl;
+}
+
 int main() {
     test_system_clock();
     test_steady_clock();
     test_high_resolution_clock();
     test_clock_macro();
+    test_time_point();
     return 0;
 }
